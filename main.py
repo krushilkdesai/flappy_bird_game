@@ -2,7 +2,7 @@ print ("hello word")
 import random
 import sys
 import pygame
-from pygame.locals import
+from pygame.locals import*
 
 FPS = 32
 SCREENWIDTH = 289
@@ -21,11 +21,11 @@ def welcome():
     """
 
 
- playerx = int(SCREENSIDTH/5)
- playery = int ((SCREENHEIGHT - GAME_SPRITES['player'].get_height())/2)
-massagex = int((SREENWIDTH - GAME_SPRITES['massage'].get_width())/2)
-messagey = int(SCREENHEIGHT*0.13)
-basex = 0
+    playerx = int(SCREENWIDTH/5)
+    playery = int ((SCREENHEIGHT - GAME_SPRITES['player'].get_height())/2)
+    massagex = int((SREENWIDTH - GAME_SPRITES['massage'].get_width())/2)
+    messagey = int(SCREENHEIGHT*0.13)
+    basex = 0
 
 
 while True:
@@ -34,7 +34,7 @@ while True:
              pygame.quit()
              sys.exit()
 
-             elif event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP):
+         elif event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP):
                  return
 else:
     SCREEN.blit (GAME_SPRITES['backgroun'],(0,0))
@@ -56,28 +56,27 @@ def mainGame():
     newPipe2 = getRandomPipe()
 
 
-_upperPipes = [
-    {'x':SCREENWIDTH + 200 , 'y': newPipe1[0]['y']},
-    {'x' : SCREENWIDTH + 200 + (SCREENWIDTH/2),'y':newPipe2[0]['y']},
+    upperPipes = [
+        {'x':SCREENWIDTH + 200 , 'y': newPipe1[0]['y']},
+        {'x' : SCREENWIDTH + 200 + (SCREENWIDTH/2),'y':newPipe2[0]['y']},
 ]  
 
 
     lower= [
         {'x': SCRREENWIDTH + 200 ,'y':newPipe1[1]['y']},
-        {'x':SCREENWIDTH +200+(SCRESNWIDTH /2)},'y':nwePipe2[1]['y']},
+        {'x':SCREENWIDTH+200+(SCRESNWIDTH/2),'y': newPipe2[1]['y']},
     ]
 
-    pipex=-4
+    pipeVelX = -4
 
 
     playerVelY = -9
-    playerVelY = 10
-    playerMaxvelY =10
+    playerMaxvelY = 10
     playerMinVelY = -8
     playerAccY = 1
 
-     playerFlapAccv = -8
-     playerFlapped = False
+    playerFlapAccv = -8
+    playerFlapped = False
     
     while True :
         for event in pygame.event.get():

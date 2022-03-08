@@ -45,4 +45,56 @@ else:
     FPSCLOCK.tick (FPS)
 
 
-def mainGame():   
+def mainGame():
+    score = 0
+    playerx = int (SCREENWIDTH/5)
+    playery = int(SCREENWIDTH/2) 
+    base = 0
+
+
+    newPipe1 = getRamdomPipe() 
+    newPipe2 = getRandomPipe()
+
+
+_upperPipes = [
+    {'x':SCREENWIDTH + 200 , 'y': newPipe1[0]['y']},
+    {'x' : SCREENWIDTH + 200 + (SCREENWIDTH/2),'y':newPipe2[0]['y']},
+]  
+
+
+    lower= [
+        {'x': SCRREENWIDTH + 200 ,'y':newPipe1[1]['y']},
+        {'x':SCREENWIDTH +200+(SCRESNWIDTH /2)},'y':nwePipe2[1]['y']},
+    ]
+
+    pipex=-4
+
+
+    playerVelY = -9
+    playerVelY = 10
+    playerMaxvelY =10
+    playerMinVelY = -8
+    playerAccY = 1
+
+     playerFlapAccv = -8
+     playerFlapped = False
+    
+    while True :
+        for event in pygame.event.get():
+            if event.type == Quit or (event.type == KEYDOWN and event.key == K_ESCAPE):
+                pygame.quit()
+                sys.exit()
+
+            if event.type == KRYDOWN and (event.key == K_SPACE or event.key == K_UP):
+                if playery > 0 :
+                    playerVelY = playerFlapAccv
+                    playerFlapped = True
+                    GAME_SOUND['beat'].play()
+
+        crashTest = isCollide (playerx,playery,upperPipes,lowerPipe)
+        if crashTest :
+            return
+
+
+        playerMidPos = playerx + GAME_SPRITES['Player'].get_width()/2
+        for 

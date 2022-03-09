@@ -1,6 +1,7 @@
 print ("hello word")
 import random
 import sys
+from unicodedata import digit
 import pygame
 from pygame.locals import*
 
@@ -102,16 +103,54 @@ def mainGame():
                 score += 1
                 print(f"Your score is {score}")
                 GAME_SOUNDS['point'].play()
+
+
         if playerVelY < playerMaxVelY and not playerFlapped:
             playerVelY += playerAccY
+
+
         if playerFlapped :
-            playerFlapped:
             playerFlapped = False
             playerHeigh = GAME_SPRITES['player'].get_height()
             playery = playery + min(playerVelY,GROUNDY-player-playerHeigh)
         
-        for upperPipe , lowerpipe in zip (upperPipes , lowerPipes)
+        for upperPipe , lowerPipe in zip (upperPipes , lowerPipes):
             upperPipe['x'] += pipeVelX
             lowerPipe['x'] += pipeVelX
         
-        if 0<upperPipes[0][,'x']
+
+        if 0<upperPipes[0]['x']<5:
+            newpipe = getRandomPipe()
+            upperPipes.append(newpipe[0])
+            lowerPIpes.append(newpipe[1])
+
+        if upperPipe [0]['x']- GAME_SPRITES['pipe'][0].get_width():
+            upperpipes.pop(0)
+            lowerpipes.pop(0)
+
+        SCREEN.blit(GAME_SPRITES['blackgroun'] (0,0))
+        for upperPipe,lowerPipe in zip (upperPipes,lowerPipes):
+            SCREEN.blit(GAME_SPRITES['pipe'][0],(upperpipe['x'],upperPipe['y']))        
+            SCREEN.blit(GAME_SPRITES['pipe'],[1](lowerPipe['x'],lowerPipe['y']))
+
+
+        SCREEN.blit(GAME_SPRITES['base'],(basex,GROUNDY))    
+        SCREEN.blit(GAME_SPRITES['player'],(playerx,playery))
+        myDigits = [int(x) for x in list (str(score))]
+        width = 0
+        for digit in mydigits:
+            width += GAME_SPRITES['number'][digit].get_width()
+            Xoffset = (SCREENWIDTH - width)/2
+
+
+            for digit in mydigits:
+                SCREEN.blit(GAME_SPRITES['numbers'][digit],(Xoffset,SCREENHEIGHT*0.12))
+                Xoff += GAME_SPRITES ['numbers'][digit].get_width()
+
+
+
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
+
+
+def isCollide ()    

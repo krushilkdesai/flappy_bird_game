@@ -96,4 +96,22 @@ def mainGame():
 
 
         playerMidPos = playerx + GAME_SPRITES['Player'].get_width()/2
-        for 
+        for pipr in upperPipes:
+            pipeMidPos = Pipe['x'] + GAME_SPRITES['pipe'][0].get_width()/2
+            if pipeMidpos <= playerMidPos<pipeMidPos+4:
+                score += 1
+                print(f"Your score is {score}")
+                GAME_SOUNDS['point'].play()
+        if playerVelY < playerMaxVelY and not playerFlapped:
+            playerVelY += playerAccY
+        if playerFlapped :
+            playerFlapped:
+            playerFlapped = False
+            playerHeigh = GAME_SPRITES['player'].get_height()
+            playery = playery + min(playerVelY,GROUNDY-player-playerHeigh)
+        
+        for upperPipe , lowerpipe in zip (upperPipes , lowerPipes)
+            upperPipe['x'] += pipeVelX
+            lowerPipe['x'] += pipeVelX
+        
+        if 0<upperPipes[0][,'x']

@@ -163,6 +163,7 @@ def mainGame():
         FPSCLOCK.tick(FPS)
 
 
+<<<<<<< HEAD
 def isCollide (playerx,playery , upperPipes , lowerPipes):
     if plyery > GROUNDY - 25 or plyery < 0 :
         GAME_SOUNDS['chirp'].play()
@@ -226,3 +227,14 @@ if __name__== "__main__":
 while True:
     welcomeScreen()
     mainGame()
+=======
+def isCollide (playerx , playery , upperPipes , lowerPipes):
+    if playery > GROUNDY - 25 or playery < 0 :
+        GAME_SOUNDS['hit'].play()
+        return True
+    
+
+    for pipe in upperPipes :
+        pipeHeight = GAME_SPRITES['pipe'][0].get_height()
+        if (playery < pipeHeight + pipe['y'] and abs (playerx - pipe [])
+>>>>>>> 6bc042875b100bed780efbd9e23615554524e183

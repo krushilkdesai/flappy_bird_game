@@ -1,11 +1,18 @@
 print ("hello word")
 from asyncio.windows_utils import pipe
+from configparser import MAX_INTERPOLATION_DEPTH
 from lib2to3.pytree import convert
+from multiprocessing.spawn import _main
 import random
 from re import T
+from smtpd import MailmanProxy
 import sys
+from threading import main_thread
+from tkinter import mainloop
 from unicodedata import digit
 from matplotlib import offsetbox
+from numpy import mask_indices, min_scalar_type
+from pip import main
 import pygame
 from pygame.locals import*
 
@@ -17,37 +24,36 @@ GROUNDY = SCREENHEIGHT*0.8
 GAME_SPRITES={}
 GAME_SOUND = {}
 PLAYER = 'gallery/sprites/bird.png'
-BACKGROUND = 'gallery/sprites/background.png'
+BACKGROUND = 'gallery/sprites/background 2.png'
 PIPE = 'gallery/sprites/pipe.png'
 
 
-def welcome():
+def welcomeScreen():
     """Show welcome images on the screen
     """
 
 
     playerx = int(SCREENWIDTH/5)
     playery = int ((SCREENHEIGHT - GAME_SPRITES['player'].get_height())/2)
-    massagex = int((SREENWIDTH - GAME_SPRITES['massage'].get_width())/2)
+    massagex = int((SCREENWIDTH - GAME_SPRITES['massage'].get_width())/2)
     messagey = int(SCREENHEIGHT*0.13)
     basex = 0
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT or (event.type==KEYDOWN and event.key == K_ESCAPE):
+                pygame.quit()
+                sys.exit()
 
-
-while True:
-     for event in pygame.event.get():
-         if event.type == QUIT or (evevnt.type==KEYDOWN and event.key == K_ESCAPE):
-             pygame.quit()
-             sys.exit()
-
-         elif event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP):
-             return
-         else:
-             SCREEN.blit (GAME_SPRITES['backgroun'],(0,0))
-             SCEEN.bilt(GAME_SPRITES['playe'],(playerx,playery))
-             SCREEN.bilt(GAME_SPRITES['massage'],(messagex,messame))
-             SCREEN.bilt(GAME_SPRITES['base'],(basex,GROUND))
-             pygame.display.update()
-             FPSCLOCK.tick (FPS)
+            elif event.type==KEYDOWN and (event.key==K_SPACE or event.key == K_UP):
+                return
+        
+            else:
+                SCREEN.blit (GAME_SPRITES['background'],(0,0))
+                SCREEN.blit(GAME_SPRITES['player'],(playerx,playery))
+                SCREEN.blit(GAME_SPRITES['massage'],(messagex,messagey))
+                SCREEN.blit(GAME_SPRITES['base'],(basex , GROUNDY))
+                pygame.display.update()
+                FPSCLOCK.tick(FPS)
 
 
 def mainGame():
@@ -182,7 +188,9 @@ def getRandomPIpe():
     ]
     return pipe
 
-if _name_ == "_main_":
+
+
+if __name__== "__main__":
    pygame.init()
    FPSCLOCK = pygame.time.Clock()
    pygame.display.set_caption('Flappy Bird By Krushil K Desai')
@@ -199,9 +207,9 @@ if _name_ == "_main_":
        pygame.image.load('gallery/sprites/9.png').convert_alpha(),
    )
 
-   GAME_SPRITES['message']=pygame.image.load('gallery/sprites/message.png').convert_alpha()
-   GAME_SPRITES['base']=pygame.image.load('gallery/sprites/baes.png').convert_alpha()
-   GAME_SPRITES['pipe']=(pygame.transform.ratate(pygame.image.load(PIPE).convert_alpha(),180),
+   GAME_SPRITES['massage']=pygame.image.load('gallery/sprites/massage.png').convert_alpha()
+   GAME_SPRITES['base']=pygame.image.load('gallery/sprites/base.png').convert_alpha()
+   GAME_SPRITES['pipe']=(pygame.transform.rotate(pygame.image.load(PIPE).convert_alpha(),180),
    pygame.image.load(PIPE).convert_alpha()
    )
 
@@ -211,10 +219,10 @@ if _name_ == "_main_":
    GAME_SOUND['rocket']=pygame.mixer.Sound('gallery/audio/rocket.wav')
    GAME_SOUND['wind']=pygame.mixer.Sound('gallery/audio/wind.wav')
 
-   GAME_SPRITES['blackground']=pygame.image.load(BACKGROUND).convert()
+   GAME_SPRITES['background']=pygame.image.load(BACKGROUND).convert()
    GAME_SPRITES['player']=pygame.image.load(PLAYER).convert_alpha()
 
 
 while True:
     welcomeScreen()
-    MainGame()
+    mainGame()

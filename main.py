@@ -1,18 +1,5 @@
-print ("hello word")
-from asyncio.windows_utils import pipe
-from configparser import MAX_INTERPOLATION_DEPTH
-from lib2to3.pytree import convert
-from multiprocessing.spawn import _main
 import random
-from re import T
-from smtpd import MailmanProxy
 import sys
-from threading import main_thread
-from tkinter import mainloop
-from unicodedata import digit
-from matplotlib import offsetbox
-from numpy import mask_indices, min_scalar_type
-from pip import main
 import pygame
 from pygame.locals import*
 
@@ -20,7 +7,7 @@ FPS = 32
 SCREENWIDTH = 289
 SCREENHEIGHT = 511
 SCREEN = pygame.display.set_mode((SCREENWIDTH,SCREENHEIGHT))
-GROUNDY = SCREENHEIGHT*0.8
+GROUNDY = SCREENHEIGHT*0.05
 GAME_SPRITES={}
 GAME_SOUND = {}
 PLAYER = 'gallery/sprites/bird.png'
@@ -34,8 +21,8 @@ def welcomeScreen():
 
 
     playerx = int(SCREENWIDTH/5)
-    playery = int ((SCREENHEIGHT - GAME_SPRITES['player'].get_height())/2)
-    massagex = int((SCREENWIDTH - GAME_SPRITES['massage'].get_width())/2)
+    playery = int ((SCREENHEIGHT-GAME_SPRITES['player'].get_height())/2)
+    massagex = int((SCREENWIDTH-GAME_SPRITES['massage'].get_width())/2)
     messagey = int(SCREENHEIGHT*0.13)
     basex = 0
     while True:
@@ -50,7 +37,7 @@ def welcomeScreen():
             else:
                 SCREEN.blit (GAME_SPRITES['background'],(0,0))
                 SCREEN.blit(GAME_SPRITES['player'],(playerx,playery))
-                SCREEN.blit(GAME_SPRITES['massage'],(messagex,messagey))
+                SCREEN.blit(GAME_SPRITES['massage'],(massagex,messagey))
                 SCREEN.blit(GAME_SPRITES['base'],(basex , GROUNDY))
                 pygame.display.update()
                 FPSCLOCK.tick(FPS)
@@ -68,14 +55,14 @@ def mainGame():
 
 
     upperPipes = [
-        {'x':SCREENWIDTH + 200 , 'y': newPipe1[0]['y']},
-        {'x' : SCREENWIDTH + 200 + (SCREENWIDTH/2),'y':newPipe2[0]['y']},
+        {'x':SCREENWIDTH+200 ,'y':newPipe1[0]['y']},
+        {'x':SCREENWIDTH+200+(SCREENWIDTH/2),'y':newPipe2[0]['y']},
 ]  
 
 
-    lower= [
-        {'x': SCRREENWIDTH + 200 ,'y':newPipe1[1]['y']},
-        {'x':SCREENWIDTH+200+(SCRESNWIDTH/2),'y': newPipe2[1]['y']},
+    lowerPipes= [
+        {'x':SCREENWIDTH+200,'y':newPipe1[1]['y']},
+        {'x':SCREENWIDTH+200+(SCRESNWIDTH/2),'y':newPipe2[1]['y']},
     ]
 
     pipeVelX = -4
@@ -91,7 +78,7 @@ def mainGame():
     
     while True :
         for event in pygame.event.get():
-            if event.type == Quit or (event.type == KEYDOWN and event.key == K_ESCAPE):
+            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 pygame.quit()
                 sys.exit()
 
@@ -99,17 +86,17 @@ def mainGame():
                 if playery > 0 :
                     playerVelY = playerFlapAccv
                     playerFlapped = True
-                    GAME_SOUND['beat'].play()
+                    GAME_SOUNDS['beat'].play()
 
-        crashTest = isCollide (playerx,playery,upperPipes,lowerPipe)
+        crashTest = isCollide (playerx,playery,upperPipes,lowerPipes)
         if crashTest :
             return
 
 
-        playerMidPos = playerx + GAME_SPRITES['Player'].get_width()/2
+        playerMidPos = playerx + GAME_SPRITES['player'].get_width()/2
         for pipr in upperPipes:
-            pipeMidPos = Pipe['x'] + GAME_SPRITES['pipe'][0].get_width()/2
-            if pipeMidpos <= playerMidPos<pipeMidPos+4:
+            pipeMidPos = pipe['x'] + GAME_SPRITES['pipe'][0].get_width()/2
+            if pipeMidPos<=playerMidPos < pipeMidPos +4:
                 score += 1
                 print(f"Your score is {score}")
                 GAME_SOUNDS['point'].play()
@@ -163,7 +150,6 @@ def mainGame():
         FPSCLOCK.tick(FPS)
 
 
-<<<<<<< HEAD
 def isCollide (playerx,playery , upperPipes , lowerPipes):
     if plyery > GROUNDY - 25 or plyery < 0 :
         GAME_SOUNDS['chirp'].play()
@@ -227,14 +213,3 @@ if __name__== "__main__":
 while True:
     welcomeScreen()
     mainGame()
-=======
-def isCollide (playerx , playery , upperPipes , lowerPipes):
-    if playery > GROUNDY - 25 or playery < 0 :
-        GAME_SOUNDS['hit'].play()
-        return True
-    
-
-    for pipe in upperPipes :
-        pipeHeight = GAME_SPRITES['pipe'][0].get_height()
-        if (playery < pipeHeight + pipe['y'] and abs (playerx - pipe [])
->>>>>>> 6bc042875b100bed780efbd9e23615554524e183
